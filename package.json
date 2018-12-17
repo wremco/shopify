@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "start": "index.html"
+  }
   "buildpacks": [
     {
       "url": "https://github.com/heroku/heroku-buildpack-nodejs"
