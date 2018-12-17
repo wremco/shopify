@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Shopify App Bridge</title>
+    <script src="https://unpkg.com/@shopify/app-bridge@0.8.2/index.js"></script>
+    <script src="https://unpkg.com/@shopify/app-bridge@0.8.2/actions.js"></script>
+    <script>
+      var createApp = window['app-bridge']['default'];
+      var getShopOrigin = window['app-bridge']['getShopOrigin'];
+
+      var app = createApp({
+        apiKey: '84c9b87fdb3c01e5548399f5ec72d2d2',
+        shopOrigin: getShopOrigin(),
+	  });
+	</script>
+  </head>
+	<body>
+		<script>
+			var actions = window['app-bridge']['actions'];
+			var TitleBar = actions.TitleBar;
+			var Button = actions.Button;
+			var Flash = actions.Flash;
+
+			var button = Button.create(app, {label: 'Trigger flash'});
+			var flashOptions = {
+				message: 'Flash message triggered',
+				duration: 5000,
+				isDismissible: true,
+			};
+			var flash = Flash.create(app, flashOptions)
+
+			TitleBar.create(app, {
+				title: 'This is a test title bar',
+				buttons: {
+					primary: button,
+				},
+			});
+
+			button.subscribe(Button.Action.CLICK, data => {
+				flash.dispatch(Flash.Action.SHOW);
+			});
+
+		</script>
+
+		<p>
+			Flash and title bar test
+		</p>
+
+	</body>
+</html>
